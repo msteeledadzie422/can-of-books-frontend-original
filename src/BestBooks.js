@@ -38,7 +38,7 @@ componentDidMount() {
           <Carousel>
             {this.state.books.map(element => 
               <Carousel.Item>
-              <img src='https://place-hold.it/2000x400/black/white' alt='sample background image'></img>
+              <img src='https://place-hold.it/2000x400/black/white' alt='sample background'></img>
               <Carousel.Caption>
                 <h2>{element.title}</h2>
                 <p>{element.description}</p>
