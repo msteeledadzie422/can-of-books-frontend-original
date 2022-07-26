@@ -16,8 +16,22 @@ JavaScript, HTML, CSS, React, Bootstrap, Axios
 ## Change Log
 25 July 2022 - Renders Books from database through API
 
-## Estimates
+Clone this repo to your own account with the green "Use this template" button. Then, add any collaborators. Now you are ready to start adding features! Deploy your site to let the world know which books have had the greatest impact on you, and what's recommended. Enjoy!
+
+## Time Estimates
+
+Name of feature: Delete Button + Post
+
+Estimate of time needed to complete: 2 hours
+
+Start time: 2pm PT
+
+Finish time: 4pm PT
+
+Actual time needed to complete: 2 hours
+
 ---
+
 Feature: 3. Book Component: As a user, I'd like to see the list of books, so that I can see what's recommended to me.
 
 Duration Estimate: 3 hours
