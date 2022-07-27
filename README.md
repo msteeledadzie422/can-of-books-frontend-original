@@ -69,7 +69,7 @@ Actual Duration:
 ---
 
 Credit and Collaborations
-Background Image: www.pexels.com
+Background Image: [www.pexels.com](https://www.pexels.com/photo/assorted-books-on-wooden-shelf-2943603/)
 Partner: Joshua Frazer
 
 Collab Agreement:
