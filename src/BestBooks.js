@@ -59,6 +59,25 @@ handleCarouselSelect = (selectedIndex, e) => {
   this.setState({carouselIndex: selectedIndex});
 }
 
+handleUpdateBook = async (e) => {
+  e.preventDefault();
+  const title = e.target[0].value;
+  const description = e.target[1].value;
+  const status = e.target[2].value;
+  const id = e.target[3].value;
+  await axios.put(url + `/${id}`,{title: title, description: description, status: status})
+  .then(response => {
+    const tempBooks = Array(...this.state.books)
+    const book = tempBooks.find(book => book._id === id)
+    book.title = title
+    book.description = description
+    book.status = status
+    book._id = response.data._id
+    this.setState({books: tempBooks})
+    alert(`${response.data.title} has now been updated!`)
+  })
+}
+
 componentDidMount() {
   this.fetchbooks()
 }
@@ -76,15 +95,16 @@ componentDidMount() {
           <Carousel activeIndex={this.state.carouselIndex} onSelect={this.handleCarouselSelect} style={{backgroundColor: 'black'}}>
             {this.state.books.map(element => 
               <Carousel.Item key={element._id}>
-                <img src={bgImage} alt='sample background' style={{width: '100%', height: '30vh', opacity: "0.2"}}/>
+                <img src={bgImage} alt='sample background' style={{width: '100%', height: '50vh', opacity: "0.2"}}/>
                 <Carousel.Caption>
-                  <Form>
+                  <Form onSubmit={this.handleUpdateBook}>
                     <Form.Control defaultValue={element.title} />
                     <Form.Control defaultValue={element.description} />
                     <Form.Control defaultValue={element.status} />
+                    <Form.Control defaultValue={element._id} disabled />
+                    <Button type='submit' variant='success'>Update Book</Button>
                   </Form>
                   <Button onClick={e => this.deleteBook(element._id) } variant='danger'>Delete Book</Button>
-                  <Button onClick={e => {}} variant='success'>Update Book</Button>
               </Carousel.Caption>
             </Carousel.Item> 
               )}
