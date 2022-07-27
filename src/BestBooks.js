@@ -3,6 +3,7 @@ import axios from 'axios';
 import Carousel from 'react-bootstrap/Carousel';
 import Button from 'react-bootstrap/Button';
 import BookFormModal from './BookFormModal';
+import bgImage from './books_bg.jpeg';
 
 let url = 'https://frazer-can-of-books.herokuapp.com/books';
 
@@ -11,11 +12,10 @@ class BestBooks extends React.Component {
     super(props);
     this.state = {
       books: [],
-      showModal: false
+      showModal: false,
+      carouselIndex: 0
     }
   }
-
-  /* TODO: Make a GET request to your API to fetch all the books from the database  */
 
 async fetchbooks() {
   let response = await axios.get(url);
@@ -27,7 +27,8 @@ async fetchbooks() {
 addBook = (book) => {
   axios.post(url,book)
   .then(response => {
-  this.setState({books: [...this.state.books,response.data]})
+  const lastIndex = this.state.books.length; // will be equal to length because adding a book
+  this.setState({books: [...this.state.books,response.data], showModal: false, carouselIndex: lastIndex})
   })
   .catch(error => {
     console.log(error)
@@ -35,17 +36,26 @@ addBook = (book) => {
 }
 
 deleteBook = (bookID) => {
-  axios.delete(url + `/${bookID}`)
-  .then(() => {
-    this.removefromState(bookID)
-  }) 
+  // eslint-disable-next-line no-restricted-globals
+  const confirmed = confirm("Are you sure you wish to delete this book?");
+  if (confirmed){
+    axios.delete(url + `/${bookID}`)
+    .then(() => {
+      this.removefromState(bookID)
+    })
+    .catch(error => console.log(error)); 
+  }
 }
 
 removefromState = (bookID) => {
   const newArray = this.state.books.filter(book => {
     return !(book._id === bookID)
   })
-  this.setState({books: newArray})
+  this.setState({books: newArray, carouselIndex: 0})
+}
+
+handleCarouselSelect = (selectedIndex, e) => {
+  this.setState({carouselIndex: selectedIndex});
 }
 
 componentDidMount() {
@@ -53,10 +63,6 @@ componentDidMount() {
 }
 
   render() {
-    console.log(this.state.books)
-
-
-    /* TODO: render all the books in a Carousel */
 
     return (
       <>
@@ -66,18 +72,17 @@ componentDidMount() {
         </Button>
         <BookFormModal show={this.state.showModal} close={(e) => this.setState({showModal:false})} submit={this.addBook}></BookFormModal>
         {this.state.books.length ? (
-          <Carousel>
+          <Carousel activeIndex={this.state.carouselIndex} onSelect={this.handleCarouselSelect} style={{backgroundColor: 'black'}}>
             {this.state.books.map(element => 
-              <Carousel.Item>
-              <img src='https://place-hold.it/2000x400/black/white' alt='sample background'></img>
-              <Carousel.Caption>
-                <h2>{element.title}</h2>
-                <p>{element.description}</p>
-                <p>{element.status}</p>
-                <p>{element._id}</p>
-                <Button onClick={e => this.deleteBook(element._id)}>
-                Delete Book
-              </Button>
+              <Carousel.Item key={element._id}>
+                <img src={bgImage} alt='sample background' style={{width: '100%', height: '30vh', opacity: "0.2"}}/>
+                <Carousel.Caption>
+                  <h2>{element.title}</h2>
+                  <p>{element.description}</p>
+                  <p>{element.status}</p>
+                  <Button onClick={e => this.deleteBook(element._id)}>
+                  Delete Book
+                  </Button>
               </Carousel.Caption>
             </Carousel.Item> 
               )}
