@@ -69,6 +69,7 @@ Actual Duration:
 ---
 
 Credit and Collaborations
+Background Image: www.pexels.com
 Partner: Joshua Frazer
 
 Collab Agreement:
