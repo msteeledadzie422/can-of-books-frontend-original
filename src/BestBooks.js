@@ -4,6 +4,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import Button from 'react-bootstrap/Button';
 import BookFormModal from './BookFormModal';
 import bgImage from './books_bg.jpeg';
+import Form from 'react-bootstrap/Form'
 
 let url = 'https://frazer-can-of-books.herokuapp.com/books';
 
@@ -77,12 +78,13 @@ componentDidMount() {
               <Carousel.Item key={element._id}>
                 <img src={bgImage} alt='sample background' style={{width: '100%', height: '30vh', opacity: "0.2"}}/>
                 <Carousel.Caption>
-                  <h2>{element.title}</h2>
-                  <p>{element.description}</p>
-                  <p>{element.status}</p>
-                  <Button onClick={e => this.deleteBook(element._id)}>
-                  Delete Book
-                  </Button>
+                  <Form>
+                    <Form.Control defaultValue={element.title} />
+                    <Form.Control defaultValue={element.description} />
+                    <Form.Control defaultValue={element.status} />
+                  </Form>
+                  <Button onClick={e => this.deleteBook(element._id) } variant='danger'>Delete Book</Button>
+                  <Button onClick={e => {}} variant='success'>Update Book</Button>
               </Carousel.Caption>
             </Carousel.Item> 
               )}
