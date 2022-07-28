@@ -44,15 +44,15 @@ Actual Duration: 2 hours
 
 ---
 
-Feature:
+Feature: Update Book Button
 
-Duration Estimate:
+Duration Estimate: 2 hours
 
-Start:
+Start: 3pm PT
 
-Finish:
+Finish: 4:30pm PT
 
-Actual Duration:
+Actual Duration: 1.5 hours
 
 ---
 
